@@ -17,7 +17,7 @@ import (
 
 const name = "kubectl-finalize_namespace"
 
-const version = "0.0.1"
+const version = "0.0.2"
 
 var revision = "HEAD"
 
@@ -39,6 +39,10 @@ func main() {
 	}
 
 	namespace := flag.Arg(0)
+	if namespace == "" {
+		flag.Usage()
+		os.Exit(1)
+	}
 
 	cmd := exec.Command("kubectl", "get", "namespace", namespace, "-o", "json")
 	var buf bytes.Buffer
